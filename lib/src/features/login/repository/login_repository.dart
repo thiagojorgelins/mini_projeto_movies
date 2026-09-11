@@ -9,11 +9,11 @@ class LoginRepository {
 
   Future<User> login(String username, String password) async {
     try {
-      var loginUser = UserAdapter.encodedProto(
+      var loginUser = UserAdapter.encodedUser(
         User(id: 0, username: username, password: password),
       );
       var response = await _loginDatasource.login(loginUser);
-      var userDecoded = UserAdapter.decodeProto(response);
+      var userDecoded = UserAdapter.decodeUser(response);
       return userDecoded;
     } catch (e) {
       throw Exception('Failed to login: ${e.toString()}');

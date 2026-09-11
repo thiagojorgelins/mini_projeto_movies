@@ -2,7 +2,6 @@ import 'dart:typed_data';
 
 import 'package:http/http.dart' as http;
 import 'package:mini_projeto_movies/src/core/networks/server.address.dart';
-import 'package:mini_projeto_movies/src/shared/proto/message.pb.dart';
 
 class MoviesDatasource {
   final client = http.Client();
@@ -16,9 +15,8 @@ class MoviesDatasource {
     }
   }
 
-  Future<bool> rentMovie(int userId, int movieId) async {
+  Future<bool> rentMovie(Uint8List rental) async {
     try {
-      Rental rental = Rental(userId: userId, movieId: movieId);
       final response = await client.post(
         Uri.parse(rentalMovies),
         headers: {
@@ -33,16 +31,15 @@ class MoviesDatasource {
     }
   }
 
-  Future<Uint8List> showAllMoviesRentByUser(User user) async {
-    try{
-      User reqUser = User(id: user.id, username: "", password: "");
+  Future<Uint8List> showAllMoviesRentByUser(Uint8List user) async {
+    try {
       final response = await client.post(
         Uri.parse(rentalMoviesByUser),
         headers: {
           'Content-Type': 'application/x-protobuf',
-          'X-Student-Token' : userToken
+          'X-Student-Token': userToken,
         },
-        body: reqUser
+        body: user,
       );
       return response.bodyBytes;
     } catch (e) {
@@ -50,20 +47,19 @@ class MoviesDatasource {
     }
   }
 
-  Future<bool> returnMovie(int userId, int movieId) async {
+  Future<bool> returnMovie(Uint8List rental) async {
     try {
-      Rental rental = Rental(userId: userId, movieId: movieId);
       final response = await client.post(
         Uri.parse(watchMovie),
         headers: {
           'Content-Type': 'application/x-protobuf',
-          'X-Student-Token': userToken
+          'X-Student-Token': userToken,
         },
-        body: rental
+        body: rental,
       );
 
       return response.statusCode == 200;
-    } catch (e){
+    } catch (e) {
       throw Exception('Can\'t connect to server! ${e.toString()}');
     }
   }

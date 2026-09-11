@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mini_projeto_movies/src/core/di/injection.dart';
-import 'package:mini_projeto_movies/src/core/router/router.dart';
+import 'package:mini_projeto_movies/src/features/login/controller/login_controller.dart';
 import 'package:mini_projeto_movies/src/features/movies/controller/movies_controller.dart';
 import 'package:mini_projeto_movies/src/features/movies/ui/available_movies.dart';
 import 'package:mini_projeto_movies/src/features/movies/ui/rental_movies.dart';
-
 
 class ScreenMovies extends StatefulWidget {
   const new({super.key});
@@ -16,18 +15,18 @@ class ScreenMovies extends StatefulWidget {
 
 class _ScreenMoviesState extends State<ScreenMovies> {
   final _moviesController = getIt<MoviesController>();
-  var data = router.state.extra;
+  final _loginController = getIt<LoginController>();
 
   @override
-  void initState(){
+  void initState() {
     super.initState();
     _moviesController.getAvailableMovies();
   }
 
   @override
   Widget build(BuildContext context) {
-
     return DefaultTabController(
+      initialIndex: 0,
       length: 2,
       child: Scaffold(
         appBar: AppBar(
@@ -40,7 +39,7 @@ class _ScreenMoviesState extends State<ScreenMovies> {
                 children: [
                   Icon(Icons.circle, color: Colors.white, size: 40),
                   Text(
-                    "${data.toString().isEmpty ? 'Username' : data}",
+                    _loginController.userUsername.value,
                     style: TextStyle(color: Colors.white),
                   ),
                 ],
@@ -60,12 +59,7 @@ class _ScreenMoviesState extends State<ScreenMovies> {
             ],
           ),
         ),
-        body: TabBarView(
-          children: <Widget>[
-            AvailableMovies(),
-            RentalMovies(),
-          ],
-        ),
+        body: TabBarView(children: <Widget>[AvailableMovies(), RentalMovies()]),
       ),
     );
   }

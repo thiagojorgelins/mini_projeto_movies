@@ -3,7 +3,7 @@ import 'dart:typed_data';
 import 'package:mini_projeto_movies/src/shared/proto/message.pb.dart';
 
 class UserAdapter {
-  static User decodeProto(Uint8List encodeUser) {
+  static User decodeUser(Uint8List encodeUser) {
     try {
       return User.fromBuffer(encodeUser);
     } catch (e) {
@@ -11,7 +11,7 @@ class UserAdapter {
     }
   }
 
-  static Uint8List encodedProto(User user) {
+  static Uint8List encodedUser(User user) {
     return user.writeToBuffer();
   }
 }

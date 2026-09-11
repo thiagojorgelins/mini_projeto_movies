@@ -16,17 +16,53 @@ class _FormLoginState extends State<FormLogin> {
   final _passwordController = TextEditingController(text: '');
   final _loginController = getIt<LoginController>();
 
-  void doLogin(String username, String password) async {
-    var success = await _loginController.login(username, password);
-    
-    if (success) {
-      if (mounted){
-        context.go('/movies', extra: _loginController.userUsername);
+  void doLogin() async {
+    List<String> errors = [];
+
+    if (_usernameController.text.isEmpty) {
+      errors.add("Username don't be empty");
+    }
+
+    if (_passwordController.text.isEmpty) {
+      errors.add("Password don't be empty");
+    }
+
+    if (errors.isNotEmpty) {
+      showDialog(
+        context: context,
+        builder: (BuildContext context) {
+          return AlertDialog(
+            title: Text("Erro ao fazer login"),
+            content: Text(errors.toString()),
+          );
+        },
+      );
+    } else {
+      var success = await _loginController.login(
+        _usernameController.text,
+        _passwordController.text,
+      );
+
+      if (mounted) {
+        if (success) {
+          context.go(
+            '/movies',
+          );
+        } else {
+          showDialog(
+            context: context,
+            builder: (BuildContext context) {
+              return AlertDialog(
+                title: Text("Erro ao fazer login"),
+                content: Text("${_loginController.errorMessage.value}"),
+              );
+            },
+          );
+        }
       }
     }
   }
-  
-  
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -102,9 +138,7 @@ class _FormLoginState extends State<FormLogin> {
                                       ),
                                     ),
                                   ),
-                                  onPressed: () => {
-                                    doLogin(_usernameController.text, _passwordController.text),
-                                  },
+                                  onPressed: () => {doLogin()},
                                   child: Text("Entrar"),
                                 ),
                               ],
