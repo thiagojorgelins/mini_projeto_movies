@@ -20,34 +20,12 @@ class _MoviePageState extends State<MoviePage> {
   final _loginController = getIt<LoginController>();
 
   Future<void> rentMovie() async {
-    var userMovies = _moviesController.userMovies;
-    bool userMovie = userMovies.contains(_moviesController.movieById.value);
-    if (userMovie) {
-      showDialog(
-        context: context,
-        builder: (BuildContext context) {
-          return AlertDialog(
-            title: const Text("Não é possível alugar este filme"),
-            content: const Text("Filme já foi alugado"),
-            actions: [
-              TextButton(
-                onPressed: () {
-                  Navigator.of(context).pop();
-                },
-                child: const Text('OK'),
-              ),
-            ],
-          );
-        },
-      );
-    } else {
-      final res = await _moviesController.rentalMovies(
-        _loginController.userId.value,
-        _moviesController.movieById.value.id,
-      );
-      if (res) {
-        context.go("/movies");
-      }
+    final res = await _moviesController.rentalMovies(
+      _loginController.userId.value,
+      _moviesController.movieById.value.id,
+    );
+    if (res) {
+      context.go("/movies");
     }
   }
 
