@@ -3,7 +3,8 @@ import 'package:http/http.dart' as http;
 import 'package:mini_projeto_movies/src/features/login/controller/login_controller.dart';
 import 'package:mini_projeto_movies/src/features/login/data/datasources/login_datasource.dart';
 import 'package:mini_projeto_movies/src/features/login/repository/login_repository.dart';
-import 'package:mini_projeto_movies/src/features/movies/controller/movies_controller.dart';
+import 'package:mini_projeto_movies/src/features/movies/controller/available_movies_controller.dart';
+import 'package:mini_projeto_movies/src/features/movies/controller/rental_movies_controller.dart';
 import 'package:mini_projeto_movies/src/features/movies/data/datasourcer/movies_datasource.dart';
 import 'package:mini_projeto_movies/src/features/movies/repository/movies_repository.dart';
 
@@ -18,5 +19,6 @@ void configureDependencies() {
 
   getIt.registerFactory<MoviesDatasource>(() => MoviesDatasource());
   getIt.registerFactory<MoviesRepository>(() => MoviesRepository(getIt()));
-  getIt.registerLazySingleton(() => MoviesController(getIt()));
+  getIt.registerLazySingleton(() => AvailableMoviesController(getIt()));
+  getIt.registerLazySingleton(() => RentalMoviesController(getIt()));
 }

@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mini_projeto_movies/src/core/di/injection.dart';
 import 'package:mini_projeto_movies/src/features/login/controller/login_controller.dart';
-import 'package:mini_projeto_movies/src/features/movies/controller/movies_controller.dart';
+import 'package:mini_projeto_movies/src/features/movies/controller/available_movies_controller.dart';
 import 'package:mini_projeto_movies/src/features/movies/ui/available_movies.dart';
 import 'package:mini_projeto_movies/src/features/movies/ui/rental_movies.dart';
 
@@ -14,7 +14,7 @@ class ScreenMovies extends StatefulWidget {
 }
 
 class _ScreenMoviesState extends State<ScreenMovies> {
-  final _moviesController = getIt<MoviesController>();
+  final _moviesController = getIt<AvailableMoviesController>();
   final _loginController = getIt<LoginController>();
 
   @override

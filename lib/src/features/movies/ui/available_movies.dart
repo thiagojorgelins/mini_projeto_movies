@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:mini_projeto_movies/src/core/di/injection.dart';
-import 'package:mini_projeto_movies/src/features/movies/controller/movies_controller.dart';
+import 'package:mini_projeto_movies/src/features/movies/controller/available_movies_controller.dart';
+import 'package:mini_projeto_movies/src/features/movies/controller/rental_movies_controller.dart';
 import 'package:mini_projeto_movies/src/features/movies/ui/widgets/grid_movies.dart';
 import 'package:mini_projeto_movies/src/shared/proto/message.pb.dart';
 import 'package:signals/signals_flutter.dart';
@@ -14,7 +15,9 @@ class AvailableMovies extends StatefulWidget {
 }
 
 class _AvailableMoviesState extends State<AvailableMovies> {
-  final _moviesController = getIt<MoviesController>();
+  final _moviesController = getIt<AvailableMoviesController>();
+  final _rentalController = getIt<RentalMoviesController>();
+
   @override
   void initState() {
     super.initState();
@@ -23,7 +26,7 @@ class _AvailableMoviesState extends State<AvailableMovies> {
 
   void goToMovieScreen(Movie movie) {
     if (mounted) {
-      _moviesController.setMovieById = movie;
+      _rentalController.setMovieById = movie;
       context.go("/movies/:${movie.id}", extra: "screenAllMovies");
     }
   }
