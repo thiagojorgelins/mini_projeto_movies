@@ -14,7 +14,7 @@ class AvailableMoviesController {
     try {
       final response = await _moviesRepository.showAllMovies();
       final List<Movie> allMovies = response.movies;
-      if (allMovies.isNotEmpty) {
+      if (_listMovies.isEmpty) {
         _listMovies.value = allMovies;
       }
     } catch (e) {
