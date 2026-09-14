@@ -24,7 +24,7 @@ class _AvailableMoviesState extends State<AvailableMovies> {
   void goToMovieScreen(Movie movie) {
     if (mounted) {
       _moviesController.setMovieById = movie;
-      context.go("/movies/:${movie.id}");
+      context.go("/movies/:${movie.id}", extra: "screenAllMovies");
     }
   }
 
