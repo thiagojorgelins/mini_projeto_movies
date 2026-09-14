@@ -5,6 +5,7 @@ import 'package:go_router/go_router.dart';
 import 'package:mini_projeto_movies/src/core/di/injection.dart';
 import 'package:mini_projeto_movies/src/core/router/router.dart';
 import 'package:mini_projeto_movies/src/features/login/controller/login_controller.dart';
+import 'package:mini_projeto_movies/src/features/movies/controller/available_movies_controller.dart';
 import 'package:mini_projeto_movies/src/features/movies/controller/rental_movies_controller.dart';
 
 class MoviePage extends StatefulWidget {
@@ -18,6 +19,7 @@ class MoviePage extends StatefulWidget {
 class _MoviePageState extends State<MoviePage> {
   final _moviesController = getIt<RentalMoviesController>();
   final _loginController = getIt<LoginController>();
+  final _availableMovieController = getIt<AvailableMoviesController>();
 
   Future<void> rentMovie() async {
     final res = await _moviesController.rentalMovies(
@@ -25,6 +27,7 @@ class _MoviePageState extends State<MoviePage> {
       _moviesController.movieById.value.id,
     );
     if (res) {
+      _availableMovieController.movies.remove(_moviesController.movieById.value);
       context.go("/movies");
     }
   }
@@ -35,6 +38,7 @@ class _MoviePageState extends State<MoviePage> {
       _moviesController.movieById.value.id,
     );
     if (await res) {
+      _availableMovieController.movies.add(_moviesController.movieById.value);
       context.go("/movies");
     }
   }
