@@ -66,153 +66,132 @@ class _MoviePageState extends State<MoviePage> {
             border: Border.all(color: Colors.white),
             borderRadius: BorderRadius.circular(8),
           ),
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Row(
-              children: [
-                Column(
-                  children: [
-                    Expanded(
-                      child: Image.memory(
-                        Uint8List.fromList(movie.cover),
-                        fit: BoxFit.cover,
-                        scale: 0.5,
-                      ),
+          child: Row(
+            children: [
+              Column(
+                children: [
+                  Expanded(
+                    child: Image.memory(
+                      Uint8List.fromList(movie.cover),
+                      fit: BoxFit.cover,
+                      scale: 0.5,
                     ),
-                    Text(
-                      "R\$ ${movie.value.toStringAsFixed(2)}",
-                      style: TextStyle(
-                        color: Colors.white,
-                        fontWeight: FontWeight.bold,
-                        fontSize: 24,
-                      ),
+                  ),
+                  Text(
+                    "R\$ ${movie.value.toStringAsFixed(2)}",
+                    style: TextStyle(
+                      color: Colors.white,
+                      fontWeight: FontWeight.bold,
+                      fontSize: 24,
                     ),
-                  ],
-                ),
-                Row(
-                  children: [
-                    Padding(
-                      padding: EdgeInsets.all(8.0),
-                      child: Center(
-                        child: Column(
-                          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                          children: [
-                            Container(
-                              height: 540,
-                              width: 848,
-                              decoration: BoxDecoration(),
-                              child: Column(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    children: [
-                                      Text(
-                                        movie.title,
-                                        style: TextStyle(color: Colors.white),
+                  ),
+                ],
+              ),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.all(8.0),
+                  child: Column(
+                    children: [
+                      Text(
+                        movie.title,
+                        style: TextStyle(color: Colors.white),
+                      ),
+                      Text(
+                        movie.sinopse,
+                        style: TextStyle(color: Colors.white),
+                        softWrap: true,
+                      ),
+                      Spacer(),
+                      Column(
+                        crossAxisAlignment:
+                            CrossAxisAlignment.start,
+                        children: [
+                          Row(
+                            spacing: 16,
+                            children: [
+                              Center(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Year",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
                                       ),
-                                      Text(
-                                        movie.sinopse,
-                                        style: TextStyle(color: Colors.white),
+                                    ),
+                                    Text(
+                                      movie.year,
+                                      style: TextStyle(
+                                        color: Colors.white,
                                       ),
-                                    ],
-                                  ),
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Row(
-                                        spacing: 16,
-                                        children: [
-                                          Center(
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  "Year",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  movie.year,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                          Center(
-                                            child: Column(
-                                              children: [
-                                                Text(
-                                                  "Director",
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                    fontWeight: FontWeight.bold,
-                                                  ),
-                                                ),
-                                                Text(
-                                                  movie.director,
-                                                  style: TextStyle(
-                                                    color: Colors.white,
-                                                  ),
-                                                ),
-                                              ],
-                                            ),
-                                          ),
-                                        ],
-                                      ),
-                                      Row(
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.end,
-                                        spacing: 16,
-                                        children: [
-                                          fromScreen == true
-                                              ? Row(
-                                                  spacing: 16,
-                                                  children: [
-                                                    OutlinedButton(
-                                                      onPressed: () =>
-                                                          context.go("/movies"),
-                                                      child: Text("Cancel"),
-                                                    ),
-                                                    ElevatedButton(
-                                                      onPressed: rentMovie,
-                                                      child: Text("Rental"),
-                                                    ),
-                                                  ],
-                                                )
-                                              : Row(
-                                                  spacing: 16,
-                                                  children: [
-                                                    OutlinedButton(
-                                                      onPressed: () =>
-                                                          context.go("/movies"),
-                                                      child: Text("Cancel"),
-                                                    ),
-                                                    ElevatedButton(
-                                                      onPressed: watchMovie,
-                                                      child: Text("Watch"),
-                                                    ),
-                                                  ],
-                                                ),
-                                        ],
-                                      ),
-                                    ],
-                                  ),
-                                ],
+                                    ),
+                                  ],
+                                ),
                               ),
-                            ),
-                          ],
-                        ),
+                              Center(
+                                child: Column(
+                                  children: [
+                                    Text(
+                                      "Director",
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                        fontWeight: FontWeight.bold,
+                                      ),
+                                    ),
+                                    Text(
+                                      movie.director,
+                                      style: TextStyle(
+                                        color: Colors.white,
+                                      ),
+                                    ),
+                                  ],
+                                ),
+                              ),
+                            ],
+                          ),
+                          Row(
+                            mainAxisAlignment:
+                                MainAxisAlignment.end,
+                            spacing: 16,
+                            children: [
+                              fromScreen == true
+                                  ? Row(
+                                      spacing: 16,
+                                      children: [
+                                        OutlinedButton(
+                                          onPressed: () =>
+                                              context.go("/movies"),
+                                          child: Text("Cancel"),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: rentMovie,
+                                          child: Text("Rental"),
+                                        ),
+                                      ],
+                                    )
+                                  : Row(
+                                      spacing: 16,
+                                      children: [
+                                        OutlinedButton(
+                                          onPressed: () =>
+                                              context.go("/movies"),
+                                          child: Text("Cancel"),
+                                        ),
+                                        ElevatedButton(
+                                          onPressed: watchMovie,
+                                          child: Text("Watch"),
+                                        ),
+                                      ],
+                                    ),
+                            ],
+                          ),
+                        ],
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ],
-            ),
+              ),
+            ],
           ),
         ),
       ),
